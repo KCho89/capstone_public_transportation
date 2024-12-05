@@ -149,7 +149,41 @@
 -- ORDER BY total_operating_expenses DESC
 
 
+-- Total Operating Cost Per Capita for Each State.
 
+WITH total_operating_cost_per_capita AS (SELECT*
+FROM cost
+LEFT JOIN state on cost.uace_code = state.uace_code)
+SELECT
+distinct state, 
+ROUND(SUM(total_operating_expenses/population),2) AS total_operating_cost_per
+FROM total_operating_cost_per_capita
+GROUP BY state
+ORDER BY state DESC;
+
+
+WITH total_operating_cost_per_capita AS (SELECT*
+FROM cost
+LEFT JOIN state on cost.uace_code = state.uace_code)
+SELECT
+state, population, agency_name, total_operating_expenses
+FROM total_operating_cost_per_capita
+
+
+WITH total_operating_cost_per_capita AS (SELECT*
+FROM cost
+LEFT JOIN state on cost.uace_code = state.uace_code)
+SELECT*
+FROM total_operating_cost_per_capita
+
+
+-- *** what is causing the repeat states in the per capita chart?
+
+WITH total_operating_cost_per_capita AS (SELECT*
+FROM cost
+INNER JOIN state USING (uace_code))
+SELECT*
+FROM total_operating_cost_per_capita
 
 
 
